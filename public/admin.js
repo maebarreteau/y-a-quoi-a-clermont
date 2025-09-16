@@ -27,6 +27,7 @@ async function loadEvents() {
       <input type="number" step="0.000001" value="${e.lat || ''}" data-id="${e.id}" class="latInput">
       <input type="number" step="0.000001" value="${e.lng || ''}" data-id="${e.id}" class="lngInput">
       <input type="text" value="${e.description}" data-id="${e.id}" class="descInput">
+      <input type="link" value="${e.link}" data-id="${e.id}" class="linkInput">
       <button class="saveBtn" data-id="${e.id}">💾 Sauvegarder</button>
       <button class="deleteBtn" data-id="${e.id}">🗑️ Supprimer</button>
     </div>
@@ -77,7 +78,8 @@ addForm.addEventListener("submit", async (e) => {
     time: formData.get("time"),
     lat: parseFloat(formData.get("lat")),
     lng: parseFloat(formData.get("lng")),
-    description: formData.get("description")
+    description: formData.get("description"),
+    link: formData.get("link")
   };
 
   await fetch("/api/events", {

@@ -37,6 +37,7 @@ app.delete('/api/events/:id', (req, res) => {
 });
 
 app.post('/api/password', (req, res) => {
+  console.log(process.env.ADMIN_PASSWORD)
   const password = req.body.password
   if (password === process.env.ADMIN_PASSWORD) {
     res.status(200).send()
@@ -45,18 +46,18 @@ app.post('/api/password', (req, res) => {
   }
 })
 
-// Route contact
+
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Config SMTP (exemple Gmail)
+
   let transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
     port: 587,
     secure: false,
     auth: {
       user: process.env.MAIL,
-      pass: process.env.MAIL_PASSWORD // mot de passe d'application Gmail
+      pass: process.env.MAIL_PASSWORD 
     }
   });
 

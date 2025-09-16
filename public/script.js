@@ -26,6 +26,7 @@ async function loadEvents() {
         <div class="title glitch">${e.title}</div>
         <div class="date">${e.date} ; ${e.time}   @ ${e.lieu}</div>
         <p>${e.description}</p>
+        <a href=${e.link}>Billetterie</a>
       </div>
     `).join("");
 
@@ -86,7 +87,8 @@ if (addForm) {
       lieu: formData.get("lieu"),
       lat: parseFloat(formData.get("lat")),
       lng: parseFloat(formData.get("lng")),
-      description: formData.get("description")
+      description: formData.get("description"),
+      link: formData.get("link")
     };
 
     await fetch("/api/events", {
