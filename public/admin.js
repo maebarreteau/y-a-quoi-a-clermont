@@ -1,12 +1,11 @@
-const password = "vincent";
-
 const loginBtn = document.getElementById("loginBtn");
 const adminContent = document.getElementById("adminContent");
 const loginDiv = document.getElementById("login");
 
-loginBtn.addEventListener("click", () => {
-  const input = document.getElementById("adminPass").value;
-  if (input === password) {
+loginBtn.addEventListener("click", async () => {
+  const password = document.getElementById("adminPass").value;
+  const res = await fetch("/api/password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({password})})
+  if (res.status === 200) {
     loginDiv.style.display = "none";      // Masquer le login
     adminContent.style.display = "block"; // Afficher le contenu admin
   } else {
@@ -14,9 +13,7 @@ loginBtn.addEventListener("click", () => {
   }
 });
 
-// -------------------------
-// AFFICHAGE DES ÉVÉNEMENTS
-// -------------------------
+
 async function loadEvents() {
   const res = await fetch("/api/events");
   const events = await res.json();
@@ -26,6 +23,7 @@ async function loadEvents() {
       <input type="text" value="${e.title}" data-id="${e.id}" class="titleInput">
       <input type="date" value="${e.date}" data-id="${e.id}" class="dateInput">
       <input type="text" value="${e.lieu}" data-id="${e.id}" class="lieuInput">
+      <input type="time" value="${e.time}" data-id="${e.id}" class="timeInput">
       <input type="number" step="0.000001" value="${e.lat || ''}" data-id="${e.id}" class="latInput">
       <input type="number" step="0.000001" value="${e.lng || ''}" data-id="${e.id}" class="lngInput">
       <input type="text" value="${e.description}" data-id="${e.id}" class="descInput">
@@ -34,13 +32,14 @@ async function loadEvents() {
     </div>
   `).join("");
 
-  // Boutons sauvegarder
+
   document.querySelectorAll(".saveBtn").forEach(btn => {
     btn.addEventListener("click", async () => {
       const id = btn.dataset.id;
       const title = document.querySelector(`.titleInput[data-id="${id}"]`).value;
       const date = document.querySelector(`.dateInput[data-id="${id}"]`).value;
       const lieu = document.querySelector(`.lieuInput[data-id="${id}"]`).value;
+      const time = document.querySelector(`.timeInput[data-id="${id}"]`).value;
       const lat = parseFloat(document.querySelector(`.latInput[data-id="${id}"]`).value);
       const lng = parseFloat(document.querySelector(`.lngInput[data-id="${id}"]`).value);
       const description = document.querySelector(`.descInput[data-id="${id}"]`).value;
@@ -55,7 +54,7 @@ async function loadEvents() {
     });
   });
 
-  // Boutons supprimer
+
   document.querySelectorAll(".deleteBtn").forEach(btn => {
     btn.addEventListener("click", async () => {
       const id = btn.dataset.id;
@@ -65,9 +64,6 @@ async function loadEvents() {
   });
 }
 
-// -------------------------
-// FORMULAIRE D'AJOUT
-// -------------------------
 const addForm = document.getElementById("addEventForm");
 
 addForm.addEventListener("submit", async (e) => {
@@ -78,6 +74,7 @@ addForm.addEventListener("submit", async (e) => {
     title: formData.get("title"),
     date: formData.get("date"),
     lieu: formData.get("lieu"),
+    time: formData.get("time"),
     lat: parseFloat(formData.get("lat")),
     lng: parseFloat(formData.get("lng")),
     description: formData.get("description")
@@ -89,9 +86,9 @@ addForm.addEventListener("submit", async (e) => {
     body: JSON.stringify(newEvent)
   });
 
-  addForm.reset(); // Vide le formulaire
-  loadEvents();    // Recharge la liste
+  addForm.reset();
+  loadEvents();    
 });
 
-// Charger la liste au démarrage
+
 loadEvents();

@@ -1,6 +1,3 @@
-/* =====================
-   GENERAL
-===================== */
 body {
   font-family: 'VT323', monospace;
   background: #0d0d0d;
@@ -200,10 +197,10 @@ button:hover {
 
 #mapContainer {
   display: grid;
-  grid-template-columns: 70% 30%; /* carte 70%, liste 30% */
+  grid-template-columns: 70% 30%; 
   gap: 20px;
-  justify-content: center; /* centre le grid si écran plus large */
-  height: 500px; /* hauteur globale pour les deux éléments */
+  justify-content: center; 
+  height: 500px; 
 }
 
 #map, #agenda {
@@ -221,6 +218,6 @@ button:hover {
 
 .event.highlight {
   background: #333;
-  border-left: 4px solid #0f0; /* effet “surligné” */
+  border-left: 4px solid #0f0; 
   padding-left: 6px;
 }

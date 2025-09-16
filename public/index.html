@@ -5,7 +5,7 @@
   <title>Y a quoi à Clermont</title>
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Leaflet CSS -->
+ 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
@@ -22,7 +22,20 @@
     </div>
   </main>
 
-  <!-- Leaflet JS -->
+  <div id="contact">
+  <h2>Contact</h2>
+  <p>Pour demander un ajout d'événement, merci de remplir ce formulaire avec toutes les informations nécessaires (lieu, date, nom, heure, lien vers la billeterie)</p>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Votre nom" required>
+    <input type="email" name="email" placeholder="Votre email" required>
+    <textarea name="message" placeholder="Votre message" required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+  <div id="contactFeedback"></div>
+</div>
+
+
+  
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
